@@ -2,7 +2,7 @@
 using namespace std;
 
 int top=-1,stk[201],mxstk=200;
-string p="";
+string p="12,56,5,3,-,/,+";
 
 void push(int item)
 {
@@ -36,23 +36,24 @@ int operate(char c,int x,int y){
 void postfix(){
     for(int i=0;p[i];i++){
         if(p[i]==',') continue;
-        char s[]=""; int k=0;
+        string s="";
         if(isdgt(p[i])){
-            while(p[i]!=',') {s[k]=p[i]; i++; k++;}
-            int x=atof(s);
+            while(p[i]!=',') {s+=p[i]; i++;}
+            int x=stoi(s);
             push(x);
         }
 
         else{
-            stk[top-1]=operate(p[i],stk[top-1],stk[top]);
-            pop();
-        }
+               stk[top-1]=operate(p[i],stk[top-1],stk[top]);
+                pop();
+            }
     }
 }
 
 int main(){
+   while(1){
     printf("Please Enter the Postfix Expression\n");
     cin>>p;
     postfix();
-    cout<<"Result is "<<stk[top]<<"\n";
+    cout<<"Result is "<<stk[top]<<"\n";}
 }
